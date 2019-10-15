@@ -1,0 +1,13 @@
+name: koa
+description: koa js dart版的实现
+version: 0.0.1
+author: allan <1440806569@qq.com>
+homepage: https://github.com/allan-hx/flutter-weui
+environment:
+  sdk: '>=2.3.0 <3.0.0'
+dependencies:
+  mime: ^0.9.6+3
+  http_server: ^0.9.8+3
+  koa_router:
+    path: ../koa_router/
+  
