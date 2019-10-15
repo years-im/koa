@@ -11,7 +11,7 @@ export 'package:koa/context.dart';
 
 class Koa {
   // 中间件
-  final List<MiddlewareCallback> middlewares = [];
+  final List<MiddlewareCallback> _middlewares = [];
   // 创建上下文方法
   final _createContext;
   // 异常回掉函数
@@ -21,7 +21,7 @@ class Koa {
 
   // 添加中间件
   Koa use(MiddlewareCallback callback) {
-    middlewares.add(callback);
+    _middlewares.add(callback);
     return this;
   }
 
@@ -50,7 +50,7 @@ class Koa {
     // 判断是否自动创建Context
     final Context ctx = _createContext == null ? Context(request) : _createContext(request);
     // 生成中间件串联调用
-    final fn = compose(middlewares);
+    final fn = compose(_middlewares);
 
     // 执行中间件
     try {

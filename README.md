@@ -66,3 +66,25 @@ main() {
 $ dart lib/main.dart
 ```
 #### 现在打开浏览器访问 http://localhost:3030 就能看到内容啦！
+
+## 文档
+
+### Koa
+#### 参数
+```dart
+Context Function(HttpRequest httpRequest) createContext
+```
+
+#### 方法
+- Koa.use 使用中间件
+
+- Koa.listen 端口绑定
+
+- Koa.onError 错误处理
+
+### 上下文 Context
+- httpRequest
+- request
+- response
+
+### 中间件
