@@ -15,7 +15,7 @@ $ pub get
 ```
 
 ## 来写一个 Hello World
-#### 运行需要Dart环境, 可以点击 [Dart环境搭建](https://dart.dev/get-dart)查看和下载SDK
+#### 运行需要Dart环境, 可以点击 [Dart环境搭建](https://dart.dev/get-dart) 查看和下载SDK
 #### 创建一个文件夹, 并且创建一个 pubspec.yaml 文件
 ```ssh
 $ mkdir dart-koa
