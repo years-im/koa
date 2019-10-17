@@ -1,10 +1,18 @@
+import 'dart:io';
 import 'package:koa/koa.dart';
 
+class AppContext extends Context {
+  AppContext(HttpRequest httpRequest): super(httpRequest);
+
+  final message = 'hello world!';
+}
+
 main() {
-  final Koa app = Koa();
+  final app = Koa<AppContext>(createContext: (httpRequest) => AppContext(httpRequest));
 
   app.use((ctx, next) {
-    ctx.response.string = 'hello world';
+    // 返回上一个中间件添加的message
+    ctx.response.string = ctx.message;
   });
 
   app.onError((error) {

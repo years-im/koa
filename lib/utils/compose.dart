@@ -1,8 +1,4 @@
-import 'package:koa/context.dart';
-
-typedef MiddlewareCallback (Context ctx, Function() next);
-
-Function compose(List<MiddlewareCallback> middlewares) {
+Function compose<T>(List<Function(T ctx, Function() next)> middlewares) {
   return (ctx) async {
     // 当前执行标记
     int index = -1;
@@ -16,9 +12,9 @@ Function compose(List<MiddlewareCallback> middlewares) {
       index = i;
 
       if (i < middlewares.length) {
-        final MiddlewareCallback callback = middlewares[i];
+        final middleware = middlewares[i];
 
-        await callback(ctx, () async {
+        await middleware(ctx, () async {
           await dispatch(i + 1);
         });
       }

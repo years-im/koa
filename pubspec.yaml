@@ -8,4 +8,3 @@ environment:
 dependencies:
   mime: ^0.9.6+3
   http_server: ^0.9.8+3
-  

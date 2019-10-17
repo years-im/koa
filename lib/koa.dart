@@ -9,19 +9,19 @@ import 'package:koa/utils/send-file.dart';
 
 export 'package:koa/context.dart';
 
-class Koa {
+class Koa<T extends Context> {
   // 中间件
-  final List<MiddlewareCallback> _middlewares = [];
+  final List<Function(T ctx, Function() next)> _middlewares = [];
   // 创建上下文方法
-  final _createContext;
+  final Context Function(HttpRequest request) _createContext;
   // 异常回掉函数
   Function(dynamic error) _onError;
 
-  Koa({ Context Function(HttpRequest httpRequest) createContext }): _createContext = createContext;
+  Koa({ Context Function(HttpRequest request) createContext }): _createContext = createContext;
 
   // 添加中间件
-  Koa use(MiddlewareCallback callback) {
-    _middlewares.add(callback);
+  Koa use(Function(T context, Function() next) middleware) {
+    _middlewares.add(middleware);
     return this;
   }
 
@@ -48,16 +48,18 @@ class Koa {
   // 请求处理
   void _handleRequest(HttpRequest request) async {
     // 判断是否自动创建Context
-    final Context ctx = _createContext == null ? Context(request) : _createContext(request);
+    final context = _createContext == null ? Context(request) : _createContext(request);
+    // 初始化
+    // context.init(request);
     // 生成中间件串联调用
     final fn = compose(_middlewares);
 
     // 执行中间件
     try {
-      await fn(ctx);
+      await fn(context);
     } catch (error) {
       if (_onError is Function) {
-        ctx.onError();
+        context.onError();
         _onError(error);
       } else {
         rethrow;
@@ -65,20 +67,20 @@ class Koa {
     }
 
     scheduleMicrotask(() {
-      _handleResponse(ctx);
+      _handleResponse(context);
     });
   }
 
   // 响应
-  void _handleResponse(Context ctx) {
-    final response = ctx.response;
-    final httpRequest = ctx.httpRequest;
+  void _handleResponse(Context context) {
+    final response = context.response;
+    final httpRequest = context.httpRequest;
     if (response.body == null) {
       final String body = codeMessage[response.status.toString()];
       httpRequest.response..write(body)..close();
       return;
     } else if (response.body is File) {
-      sendFile(ctx.httpRequest.response, response.body);
+      sendFile(context.httpRequest.response, response.body);
     } else {
       httpRequest.response..write(response.body)..close();
     }

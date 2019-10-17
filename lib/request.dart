@@ -62,9 +62,6 @@ class Request {
   // cookies
   List<Cookie> get cookies => httpRequest.cookies;
 
-  // session
-  HttpSession get session => httpRequest.session;
-
   // headers
   HttpHeaders get headers => httpRequest.headers;
 

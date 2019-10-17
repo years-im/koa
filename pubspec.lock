@@ -5,21 +5,21 @@ packages:
     dependency: "direct main"
     description:
       name: http_server
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.8+3"
   mime:
     dependency: "direct main"
     description:
       name: mime
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6+3"
   path:
     dependency: transitive
     description:
       name: path
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
 sdks:

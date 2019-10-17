@@ -4,7 +4,7 @@ import 'dart:convert';
 class Response {
   final HttpRequest httpRequest;
   // 状态是否修改过
-  bool explicitStatus = false;
+  bool _explicitStatus = false;
   // 返回内容
   dynamic _body;
 
@@ -18,12 +18,15 @@ class Response {
   // headers
   HttpHeaders  get headers => httpRequest.response.headers;
 
+  // session
+  HttpSession get session => httpRequest.session;
+
   // 获取相应内容
   dynamic get body => _body;
 
   set body(dynamic body) {
     _body = body;
-    if (explicitStatus == false) status = 200;
+    if (_explicitStatus == false) status = 200;
   }
 
   // 获取http状态码
@@ -32,7 +35,7 @@ class Response {
   // 设置http状态码
   set status(int code) {
     httpRequest.response.statusCode = code;
-    explicitStatus = true;
+    _explicitStatus = true;
   }
 
   // 返回json
