@@ -131,5 +131,3 @@ $ dart lib/main.dart
   - session
     - 类型: ```HttpSession```
     - 说明: 设置```session```
-
-### 中间件开发
