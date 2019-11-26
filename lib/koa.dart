@@ -27,7 +27,7 @@ class Koa<T extends Context> {
 
   // 监听请求
   Future<HttpServer> listen(int prot, { Function callback }) async {
-    final HttpServer server = await HttpServer.bind(InternetAddress.loopbackIPv4, prot);
+    final HttpServer server = await HttpServer.bind(InternetAddress.anyIPv4, prot);
 
     server.listen((HttpRequest request) async {
       this._handleRequest(request);
